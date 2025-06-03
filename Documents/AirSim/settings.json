@@ -1,0 +1,25 @@
+{
+  "SettingsVersion": 1.2,
+  "SimMode": "Multirotor",
+  "Vehicles": {
+    "Drone1": {
+      "VehicleType": "SimpleFlight",
+      "AutoCreate": true
+    }
+  },
+  "Recording": {
+    "RecordInterval": 0.1,
+    "Cameras": [
+      {
+        "CameraName": "0",
+        "ImageType": 0,
+        "ImageFormat": "png"
+      },
+      {
+        "CameraName": "0",
+        "ImageType": 5,
+        "ImageFormat": "pfm"
+      }
+    ]
+  }
+}
