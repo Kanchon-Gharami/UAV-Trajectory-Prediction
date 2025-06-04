@@ -47,8 +47,6 @@ unzip Blocks.zip -d AirSim_Block
 
 ### 1️⃣ Data Collection via AirSim
 
-* **Launch** `Blocks.exe`. 
-    Downloaded from: https://github.com/microsoft/AirSim/releases
 * **Install Dependencies** Make sure your virtual environment is already active, if not active it with: `AirEnv\Scripts\activate.bat`.
      ```bash
      pip install --upgrade pip
@@ -58,7 +56,10 @@ unzip Blocks.zip -d AirSim_Block
      pip install airsim
      ```
      Note: if `pip install --upgrade pip` create problem use `python -m ensurepip --upgrade`
-
+* **Launch** `Blocks.exe`. 
+    Downloaded from: https://github.com/microsoft/AirSim/releases
+    * **Note:** Open this Blocks.exe, and press `No` for question "Would you like to use car simulation? Choose no to use quadrotor simulation". This software may require DirectX to install on your computer. Once you run this simulator, press `windows` key(between your `ctrl` and `alt` key) to navigate into the command prompt. You need to run the `data_collector.py` when the simulator is already running behind.
+    * Play with Blocks.exe: Press `F1` For help/tools, press `/` for FPV view, press `0` for all types of view. `Alt+F4` for quite this simulator.
 * Run **`data_collector.py`** to record a scripted flight.
    ```bash
    python data_collector.py          # converts .txt → airsim_trajectory.csv
@@ -69,12 +70,10 @@ unzip Blocks.zip -d AirSim_Block
     * save **`airsim_rec.txt`** containing  
       `TimeStamp, POS_X, POS_Y, POS_Z, Q_W, Q_X, Q_Y, Q_Z, ImageFile`.  
 
-* AirSim writes:
-  * **`raw_data/airsim_rec.txt`** – raw log (tab‑delimited)
-  * **`raw_data/images/`** – PNG frames captured by the forward camera  
-    *(location depends on your `settings.json`; defaults to the repo’s `raw_data/`)*
-
-
+* AirSim writes: Inside the `Documents` direcotry.
+  * **`[time_of_data_collection]/airsim_rec.txt`** – raw log (tab‑delimited)
+  * **`[time_of_data_collection]/images/`** – PNG frames captured by the forward camera
+  * Copy this `airsim_rec.txt` file and `images/` directory and paste it newly created `raw_data/` directory inside your project's root folder.
 
 
 ### 2️⃣ Data Preprocessing
@@ -84,7 +83,7 @@ unzip Blocks.zip -d AirSim_Block
       pip install pandas
       pip install scipy
      ```
-* Run **`data_preprocessor.ipynb`** to convert **`airsim_rec.txt`** into **`airsim_trajectory.csv`**.  
+* Open and run **`data_preprocessor.ipynb`** to convert **`airsim_rec.txt`** into **`airsim_trajectory.csv`**.  
   The notebook:
   1. **Parses** the log and removes the `VehicleName` column.  
   2. **Converts** quaternion (`Q_W, Q_X, Q_Y, Q_Z`) ➜ **roll, pitch, yaw** (radians).  
@@ -102,7 +101,7 @@ unzip Blocks.zip -d AirSim_Block
       pip install tqdm
       pip install torch torchvision torchaudio
      ```
-Open **`trajectory_prediction.ipynb`** – it walks through the full ML pipeline:
+Open and run **`trajectory_prediction.ipynb`** – it walks through the full ML pipeline:
 1. **Data‑window creation**  
    * Builds sliding windows *(e.g., past 10 s → future 20 s at 10 Hz)*.
 2. **3‑D sanity plot**  
